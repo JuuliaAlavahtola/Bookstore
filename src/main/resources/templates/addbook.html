@@ -15,8 +15,13 @@
         <p>Price: <input type="number" th:field="*{price}" step="0.01"></p>
 
         <select id="deplist" th:field="*{category}" class="from-control">
-            <option th:each="cat: ${categories}" th:value="$cat.categoryid" th:text="$cat.category"></option>
+           <option th:each="cat : ${categories}"
+            th:value="${cat.categoryid}"
+            th:text="${cat.name}">
+            </option>
+
         </select>
+
 
         <p><input type="submit" value="Save"></p>
     </form>

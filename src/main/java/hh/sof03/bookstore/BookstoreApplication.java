@@ -10,7 +10,6 @@ import hh.sof03.bookstore.domain.Category;
 import hh.sof03.bookstore.domain.CategoryRepository;
 import hh.sof03.bookstore.domain.Book;
 
-
 @SpringBootApplication
 public class BookstoreApplication {
 
@@ -19,21 +18,30 @@ public class BookstoreApplication {
 	}
 
 	@Bean
-	public CommandLineRunner createDemo(BookRepository bookRepository, CategoryRepository categoryRepository) {
-		return (args) -> {
-			bookRepository.save(new Book(null, "Jane Austen", "Pride and Prejudice",  "978-1503290563",  1813, 9.90));
-			bookRepository.save(new Book(null, "George Orwell", "Animal Farm", "2212343-5", 1945, 19.90));
-			bookRepository.save(new Book(null, "Ernest Hemigway", "A Farewell to Arms",  "1232323-21", 1929, 19.90));
-			bookRepository.save(new Book(null, "J. R. R. Tolkien", "The Hobbit", "978-0547928227", 1937, 12.99));
+public CommandLineRunner createDemo(BookRepository bookRepository, CategoryRepository categoryRepository) {
+    return (args) -> {
 
-			bookRepository.findAll().forEach(book -> System.out.println(book));
+        
+        Category category1 = new Category("classics");
+		 categoryRepository.save(category1);
+        Category satire = categoryRepository.save(new Category("Satire"));
+        Category fiction = categoryRepository.save(new Category("Literary Fiction"));
+        Category fantasy = categoryRepository.save(new Category("Fantasy"));
 
-			categoryRepository.save(new Category("Scifi"));
-			categoryRepository.save(new Category("Comic")); 
-			categoryRepository.save(new Category("Fantasy")); 
-			
-			System.out.println("Categories:"); categoryRepository.findAll().forEach(category -> System.out.println(category));
-		};
-	}
+        bookRepository.save(new Book(null, "Jane Austen", "Pride and Prejudice", "978-1503290563", 1813, 9.90, category1));
+        bookRepository.save(new Book(null, "George Orwell", "Animal Farm", "2212343-5", 1945, 19.90, satire));
+		bookRepository.save(new Book(null, "Ernest Hemingway", "A Farewell to Arms", "1232323-21", 1929, 19.90, fiction));
+		bookRepository.save(new Book(null, "J. R. R. Tolkien", "The Hobbit", "978-0547928227", 1937, 12.99, fantasy));
+
+        
+        System.out.println("Categories:");
+        categoryRepository.findAll().forEach(c -> System.out.println(c));
+
+      
+        System.out.println("Books:");
+        bookRepository.findAll().forEach(b -> System.out.println(b));
+    };
+}
+
 
 }

@@ -1,6 +1,9 @@
 package hh.sof03.bookstore.domain;
 import java.util.List;
 
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -12,17 +15,21 @@ import jakarta.persistence.OneToMany;
 public class Category {
 
 @Id
-@GeneratedValue (strategy = GenerationType.IDENTITY)
+@GeneratedValue (strategy = GenerationType.AUTO)
 private Long categoryid;
-private String category;
+private String name;
 
+@JsonIgnoreProperties ("category")
 @OneToMany (cascade = CascadeType.MERGE, mappedBy = "category")
 private List<Book> books;
 
 
+
 public Category() {}
 
-
+public Category(String name) {
+    this.name = name;
+}
 public Long getCategoryid() {
     return categoryid;
 }
@@ -32,16 +39,23 @@ public void setCategoryid(Long categoryid) {
 }
 
 public String getName() {
-    return category;
+    return name;
+}
+ public void setName(String name) {
+    this.name = name;
+ }
+public List<Book> getBooks() {
+    return books;
 }
 
-public void setCategory(String category) {
-    this.category = category;
+public void setBooks(List<Book> books) {
+    this.books = books;
 }
+
 
 @Override
 public String toString() {
-    return "Category [categoryid=" + categoryid + ", category=" + category + "]";
+    return "Category [categoryid=" + categoryid + ", name=" + name + "]";
 }
 
 }

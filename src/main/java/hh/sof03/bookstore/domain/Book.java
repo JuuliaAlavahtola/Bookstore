@@ -1,5 +1,7 @@
 package hh.sof03.bookstore.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -7,8 +9,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 
-// Add a new model class called Book which contains attributes: title, author, publicationYear, 
-//isbn, price  
+
 @Entity
 public class Book {
 
@@ -22,17 +23,11 @@ public class Book {
     private double price;
 
     @ManyToOne 
+    @JsonIgnoreProperties("books")
     @JoinColumn(name = "categoryid") 
     private Category category;
 
-    public Book() {
-        this.author= null;
-        this.title= null;
-        this.isbn= null;
-        this.publicationYear= 0;
-        this.price= 0;
-
-    }
+    public Book() {}
 
     public Book(Long id,  String author,String title, String isbn, int publicationYear, double price, Category category) {
         this.id= id;
@@ -42,6 +37,29 @@ public class Book {
         this.publicationYear= publicationYear;
         this.price= price;
         this.category= category;
+    }
+
+     
+    public Long getId() {
+        return id;
+    }
+    public String getTitle() {
+        return title;
+    }
+    public String getAuthor() {
+        return author;
+    }
+    public int getPublicationYear() {
+        return publicationYear;
+    }
+     public String getIsbn() {
+        return isbn;
+    }
+    public double getPrice() {
+        return price;
+    }
+    public Category getCategory() {
+        return category;
     }
     
      public void setId(Long id) {
@@ -65,34 +83,18 @@ public class Book {
     public void setCategory(Category category) {
         this.category = category;
     }
+    
 
-
-     public Long getId() {
-        return id;
-    }
-    public String getTitle() {
-        return title;
-    }
-    public String getAuthor() {
-        return author;
-    }
-    public int getPublicationYear() {
-        return publicationYear;
-    }
-     public String getIsbn() {
-        return isbn;
-    }
-    public double getPrice() {
-        return price;
-    }
-    public Category getCategory() {
-        return category;
-    }
+    
 
     @Override
     public String toString() {
-        return "Book [id=" + id + ", author=" + author + ", title=" + title +
-                ", isbn=" + isbn +  ", publicationYear=" + publicationYear +  ", price=" + price + ", category=" + (category != null ? category.getName() : "none") + "]";
+        if (this.category !=null)
+        return "Book [id=" + id + ", author=" + author + ", title=" + title + ", isbn=" + isbn + ", publicationYear="
+                + publicationYear + ", price=" + price + ", category=" + this.getCategory() + "]";
+                else
+                    return "Book [id=" + id + ", author=" + author + ", title=" + title + ", isbn=" + isbn + ", publicationYear="
+                + publicationYear + ", price=" + price + "]";
     }
     
     }

@@ -5,6 +5,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import hh.sof03.bookstore.domain.Book;
 import hh.sof03.bookstore.domain.BookRepository;
@@ -51,6 +52,13 @@ public class BookController {
         Book book = bookRepository.findById(id).orElse(null);
         model.addAttribute("book", book);
         model.addAttribute("categories", categoryRepository.findAll());
-        return "editbook";
+        return "redirect:/booklist";
     }
+
+    @GetMapping("/api/books")
+public @ResponseBody Iterable<Book> getAllBooks() {
+    return bookRepository.findAll();
+}
+
+
 }
