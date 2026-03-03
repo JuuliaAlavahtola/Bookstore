@@ -24,14 +24,17 @@ public CommandLineRunner createDemo(BookRepository bookRepository, CategoryRepos
         
         Category category1 = new Category("classics");
 		 categoryRepository.save(category1);
-        Category satire = categoryRepository.save(new Category("Satire"));
-        Category fiction = categoryRepository.save(new Category("Literary Fiction"));
-        Category fantasy = categoryRepository.save(new Category("Fantasy"));
+        Category category2 =new Category("Satire");
+         categoryRepository.save(category2);
+        Category category3 = new Category("Fiction");
+        categoryRepository.save(category3);
+        Category category4 = new Category("Fantasy");
+        categoryRepository.save(category4);
 
         bookRepository.save(new Book(null, "Jane Austen", "Pride and Prejudice", "978-1503290563", 1813, 9.90, category1));
-        bookRepository.save(new Book(null, "George Orwell", "Animal Farm", "2212343-5", 1945, 19.90, satire));
-		bookRepository.save(new Book(null, "Ernest Hemingway", "A Farewell to Arms", "1232323-21", 1929, 19.90, fiction));
-		bookRepository.save(new Book(null, "J. R. R. Tolkien", "The Hobbit", "978-0547928227", 1937, 12.99, fantasy));
+        bookRepository.save(new Book(null, "George Orwell", "Animal Farm", "2212343-5", 1945, 19.90, category2));
+		bookRepository.save(new Book(null, "Ernest Hemingway", "A Farewell to Arms", "1232323-21", 1929, 19.90, category3));
+		bookRepository.save(new Book(null, "J. R. R. Tolkien", "The Hobbit", "978-0547928227", 1937, 12.99, category4));
 
         
         System.out.println("Categories:");

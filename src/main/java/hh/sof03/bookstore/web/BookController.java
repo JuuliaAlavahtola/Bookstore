@@ -55,10 +55,7 @@ public class BookController {
         return "redirect:/booklist";
     }
 
-    @GetMapping("/api/books")
-public @ResponseBody Iterable<Book> getAllBooks() {
-    return bookRepository.findAll();
-}
+   
 
 
 }
